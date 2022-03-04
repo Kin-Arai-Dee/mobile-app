@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Text,
   Link,
@@ -11,18 +11,19 @@ import {
   extendTheme,
   VStack,
   Code,
-} from "native-base";
-import NativeBaseIcon from "./components/NativeBaseIcon";
+} from "native-base"
+import NativeBaseIcon from "./src/components/NativeBaseIcon"
+import { Feather } from "@expo/vector-icons"
 
 // Define the config
 const config = {
   useSystemColorMode: false,
   initialColorMode: "dark",
-};
+}
 
 // extend the theme
-export const theme = extendTheme({ config });
-type MyThemeType = typeof theme;
+export const theme = extendTheme({ config })
+type MyThemeType = typeof theme
 declare module "native-base" {
   interface ICustomTheme extends MyThemeType {}
 }
@@ -37,6 +38,7 @@ export default function App() {
       >
         <VStack space={5} alignItems="center">
           <NativeBaseIcon />
+          <Feather name="home" size={24} color="black" />
           <Heading size="lg">Welcome to NativeBase</Heading>
           <HStack space={2} alignItems="center">
             <Text>Edit</Text>
@@ -52,12 +54,12 @@ export default function App() {
         </VStack>
       </Center>
     </NativeBaseProvider>
-  );
+  )
 }
 
 // Color Switch Component
 function ToggleDarkMode() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <HStack space={2} alignItems="center">
       <Text>Dark</Text>
@@ -70,5 +72,5 @@ function ToggleDarkMode() {
       />
       <Text>Light</Text>
     </HStack>
-  );
+  )
 }
