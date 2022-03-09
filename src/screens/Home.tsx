@@ -37,19 +37,19 @@ const Home: React.FC = () => {
           pagingEnabled={true}
         >
           <Box width={220}>
-            <FoodCard food={mockFood} size='40' top='20%' />
+            <FoodCard food={mockFood} />
           </Box>
           <Box width={220}>
-            <FoodCard food={mockFood} size='40' top='20%' />
+            <FoodCard food={mockFood} />
           </Box>
           <Box width={220}>
-            <FoodCard food={mockFood} size='40' top='20%' />
+            <FoodCard food={mockFood} />
           </Box>
           <Box width={220}>
-            <FoodCard food={mockFood} size='40' top='20%' />
+            <FoodCard food={mockFood} />
           </Box>
           <Box width={220}>
-            <FoodCard food={mockFood} size='40' top='20%' />
+            <FoodCard food={mockFood} />
           </Box>
         </ScrollView>
       </VStack>

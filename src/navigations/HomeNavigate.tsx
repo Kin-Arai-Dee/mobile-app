@@ -1,13 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createStackNavigator } from '@react-navigation/Stack'
-import Home from '../screens/Home'
+import HomeTabs from './HomeTabs'
+import Login from '../screens/Login'
+import Register from '../screens/Register'
 
 const HomeStack = createStackNavigator()
 
 const HomeNavigate = () => {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name='Home' component={Home} />
+      {/* Screens for logged in users */}
+      <HomeStack.Group screenOptions={{ presentation: 'modal' }}>
+        <HomeStack.Screen
+          name='HomeTabs'
+          component={HomeTabs}
+          options={{
+            headerTitle: 'Kin Arai Dee',
+          }}
+        />
+      </HomeStack.Group>
+      {/* Auth screens */}
+      <HomeStack.Group screenOptions={{ headerShown: false }}>
+        <HomeStack.Screen name='Login' component={Login} />
+        <HomeStack.Screen name='Register' component={Register} />
+      </HomeStack.Group>
     </HomeStack.Navigator>
   )
 }

@@ -4,30 +4,34 @@ import { IFood } from '../dto/food'
 
 export interface FoodCardProps {
   food: IFood
-  size?: string
-  top?: string
+  size?: 'large' | 'medium'
   isShowCal?: boolean
 }
 
 const FoodCard: React.FC<FoodCardProps> = ({
   food,
-  size = '48',
-  top = '15%',
+  size = 'medium',
   isShowCal = true,
 }) => {
   return (
-    <Box borderRadius='3xl' bg='white' m='2' mt={top} shadow='10'>
+    <Box
+      borderRadius='3xl'
+      bg='white'
+      m='2'
+      mt={size === 'medium' ? '20%' : '10%'}
+      shadow='10'
+    >
       <VStack space='6' alignItems='center'>
         <Avatar
-          size={size}
-          mt={`-${top}`}
+          size={size === 'medium' ? '40' : '64'}
+          mt={`-${size === 'medium' ? '20%' : '10%'}`}
           source={{
             uri: food.foodPic,
           }}
           shadow='1'
         />
         <Box px='4'>
-          <Text bold fontSize='xl'>
+          <Text bold fontSize={size === 'medium' ? 'xl' : '3xl'}>
             {food.foodName}
           </Text>
         </Box>
