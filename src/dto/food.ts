@@ -5,10 +5,10 @@ export interface IFood {
   calories: number
   details?: string
   ingredient1: string
-  ingredient2: string
+  ingredient2?: string
   cookMethod: string
   averagePrice: number
   restaurant?: string[]
-  carbohydrates: 'rice' | 'noodle' | 'bread'
+  carbohydrates?: 'rice' | 'noodle' | 'bread'
   isSpicy: boolean
 }
