@@ -1,6 +1,7 @@
 import { IUser } from './../dto/user';
 
 export const mockFood: IUser = {
+  userID: 'admin',
   username: 'James',
   mail: 'yugijamedi@outlook.com',
   profilePic:
