@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, VStack, Text } from 'native-base'
+import { Avatar, Box, VStack, Text, Stack } from 'native-base'
 import { IFood } from '../dto/food'
 
 export interface FoodCardProps {
@@ -21,7 +21,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
       mt={size === 'medium' ? '20%' : '10%'}
       shadow='10'
     >
-      <VStack space='6' alignItems='center'>
+      <VStack space='4' alignItems='center' textAlign='center'>
         <Avatar
           size={size === 'medium' ? '40' : '64'}
           mt={`-${size === 'medium' ? '20%' : '10%'}`}
@@ -31,11 +31,17 @@ const FoodCard: React.FC<FoodCardProps> = ({
           shadow='1'
         />
         <Box px='4'>
-          <Text bold fontSize={size === 'medium' ? 'xl' : '3xl'}>
-            {food.foodName}
-          </Text>
+          <Stack height='16' alignItems='center'>
+            <Text
+              bold
+              fontSize={size === 'medium' ? 'xl' : '3xl'}
+              numberOfLines={2}
+              textAlign='center'
+            >
+              {food.foodName}
+            </Text>
+          </Stack>
         </Box>
-
         <Box px='4' pb='4'>
           {isShowCal && (
             <Text bold fontSize='md' color='primary.600'>

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../Routes/RootStackParam'
 import FoodCard from '../components/FoodCard'
-import { mockFood } from '../mocks/food'
+import { mockFood, mockFoods } from '../mocks/food'
 import { Ionicons } from '@expo/vector-icons'
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>
@@ -36,21 +36,11 @@ const Home: React.FC = () => {
           showsHorizontalScrollIndicator={false}
           pagingEnabled={true}
         >
-          <Box width={220}>
-            <FoodCard food={mockFood} />
-          </Box>
-          <Box width={220}>
-            <FoodCard food={mockFood} />
-          </Box>
-          <Box width={220}>
-            <FoodCard food={mockFood} />
-          </Box>
-          <Box width={220}>
-            <FoodCard food={mockFood} />
-          </Box>
-          <Box width={220}>
-            <FoodCard food={mockFood} />
-          </Box>
+          {mockFoods.map((food) => (
+            <Box width={220} key={food.foodID}>
+              <FoodCard food={food} />
+            </Box>
+          ))}
         </ScrollView>
       </VStack>
     </Box>

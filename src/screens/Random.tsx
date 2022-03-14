@@ -11,8 +11,8 @@ const Random: React.FC = () => {
           กินอะไรดี
         </Text>
         <FoodCard food={mockFood} size='large' isShowCal={false} />
-        <Button rounded='full' mx='10' py='4' mt='4'>
-          <Text fontSize='xl' color='white'>
+        <Button rounded='full' mx='10' py='4' mt='6'>
+          <Text fontSize='xl' color='white' bold>
             กินอะไรดี ?
           </Text>
         </Button>
