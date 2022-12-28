@@ -1,13 +1,20 @@
 import { View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { navigationItems } from '../Routes/bottom'
 import { useTheme } from 'native-base'
+import { StackScreenProps } from '@react-navigation/stack'
+import { RootStackParamList } from 'Routes/RootStackParam'
 
 const Tab = createBottomTabNavigator()
 
-const HomeTabs: React.FC = () => {
+export type HomeTabsScreenProp = StackScreenProps<
+  RootStackParamList,
+  'HomeTabs'
+>
+
+const HomeTabs: React.FC<HomeTabsScreenProp> = ({ route }) => {
   const { colors } = useTheme()
 
   return (

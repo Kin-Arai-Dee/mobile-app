@@ -33,7 +33,9 @@ export const nativeTheme = extendTheme({
     },
   },
 })
+
 type MyThemeType = typeof nativeTheme
+
 declare module 'native-base' {
   interface ICustomTheme extends MyThemeType {}
 }

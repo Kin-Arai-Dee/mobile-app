@@ -1,29 +1,56 @@
-import React, { useState } from 'react'
-import { useWindowDimensions } from 'react-native'
-import { TabView, SceneMap } from 'react-native-tab-view'
-import Login from 'screens/Login'
-import Register from 'screens/Register'
+import { QUESTION_IMAGE } from 'images'
+import { Box, Center, Heading, Pressable, Image } from 'native-base'
+import React, { FC } from 'react'
+import { NavigationState, SceneRendererProps } from 'react-native-tab-view'
 
-const renderScene = SceneMap({
-  login: Login,
-  register: Register,
-})
+export type CustomTabBarProps = SceneRendererProps & {
+  navigationState: NavigationState<{
+    key: string
+    title: string
+  }>
+} & {
+  index: number
+  setIndex: (index: number) => void
+}
 
-export default function AuthTab() {
-  const layout = useWindowDimensions()
-
-  const [index, setIndex] = useState(0)
-  const [routes] = useState([
-    { key: 'login', title: 'เข้าสู่ระบบ' },
-    { key: 'register', title: 'สมัครสมาชิก' },
-  ])
-
+const CustomTabBar: FC<CustomTabBarProps> = ({
+  navigationState,
+  index,
+  setIndex,
+}) => {
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-    />
+    <Box
+      borderBottomLeftRadius={30}
+      borderBottomRightRadius={30}
+      px={30}
+      shadow="10"
+      backgroundColor="white"
+    >
+      <Center>
+        <Image width={175} height={175} m={60} source={QUESTION_IMAGE} />
+      </Center>
+      <Box flexDirection="row">
+        {navigationState.routes.map((route, i) => {
+          const borderColor = index === i ? 'primary.500' : 'white'
+
+          return (
+            <Box
+              key={route.key}
+              borderBottomWidth="3"
+              borderColor={borderColor}
+              flex={1}
+              alignItems="center"
+              p="3"
+            >
+              <Pressable onPress={() => setIndex(i)}>
+                <Heading size="md">{route.title}</Heading>
+              </Pressable>
+            </Box>
+          )
+        })}
+      </Box>
+    </Box>
   )
 }
+
+export default CustomTabBar
