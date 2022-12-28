@@ -7,7 +7,7 @@ import { useTheme } from 'native-base'
 
 const Tab = createBottomTabNavigator()
 
-const BottomNavigation: React.FC = () => {
+const HomeTabs: React.FC = () => {
   const { colors } = useTheme()
 
   return (
@@ -41,4 +41,4 @@ const BottomNavigation: React.FC = () => {
   )
 }
 
-export default BottomNavigation
+export default HomeTabs

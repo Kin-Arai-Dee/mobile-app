@@ -1,4 +1,4 @@
-import { IUser } from './../dto/user';
+import { IUser } from 'dto/user'
 
 export const mockFood: IUser = {
   userID: 'admin',

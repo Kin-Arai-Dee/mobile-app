@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Button, Text, VStack } from 'native-base'
-import FoodCard from '../components/FoodCard'
+import FoodCard from 'components/FoodCard'
 import { mockFood } from '../mocks/food'
 
 const Random: React.FC = () => {

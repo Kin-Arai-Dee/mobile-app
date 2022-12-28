@@ -1,12 +1,13 @@
-import Home from '../screens/Home'
-import Random from '../screens/Random'
-import Target from '../screens/Target'
-import Profile from '../screens/Profile'
+import Home from 'screens/Home'
+import Random from 'screens/Random'
+import Target from 'screens/Target'
+import Profile from 'screens/Profile'
+import Login from 'screens/Login'
 
 interface NavigationItem {
   name: string
   component: React.FC
-  icon: 'home' | 'restaurant' | 'pie-chart' | 'person'
+  icon: 'home' | 'restaurant' | 'pie-chart' | 'person' | 'time'
 }
 
 export const navigationItems: NavigationItem[] = [
@@ -23,11 +24,16 @@ export const navigationItems: NavigationItem[] = [
   {
     name: 'Target',
     component: Target,
-    icon: 'pie-chart',
+    icon: 'time',
   },
   {
     name: 'Profile',
     component: Profile,
+    icon: 'person',
+  },
+  {
+    name: 'Login',
+    component: Login,
     icon: 'person',
   },
 ]

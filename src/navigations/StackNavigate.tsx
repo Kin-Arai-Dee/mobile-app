@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeTabs from './HomeTabs'
-import Login from '../screens/Login'
-import Register from '../screens/Register'
-import FoodDetail from '../screens/FoodDetail'
+import Register from 'screens/Register'
+import FoodDetail from 'screens/FoodDetail'
+import Login from 'screens/Login'
 
 const Stack = createStackNavigator()
 

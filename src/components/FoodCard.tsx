@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, Box, VStack, Text, Stack } from 'native-base'
-import { IFood } from '../dto/food'
+import { IFood } from 'dto/food'
 
 export interface FoodCardProps {
   food: IFood
