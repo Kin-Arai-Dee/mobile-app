@@ -13,8 +13,6 @@ export type ProfileNavigationProp = StackNavigationProp<
 >
 
 const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
-  console.log(navigation)
-
   return (
     <View>
       <Text>Profile</Text>

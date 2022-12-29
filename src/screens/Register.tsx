@@ -1,11 +1,13 @@
 import React from 'react'
 
-import { Box, Button, FormControl, Input, Stack, VStack } from 'native-base'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import { IUserRegisterForm } from 'dto/user'
 import useForm from 'hooks/useForm'
+import GenericFormProvider from 'components/hook-form/FormProvider'
+import InputController from 'components/hook-form/InputController'
+import { EMAIL_REGEX } from 'constants/regex'
 
 type RegisterNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
@@ -35,79 +37,48 @@ const Register: React.FC = () => {
   }
 
   return (
-    <FormControl py={12} px={8} isInvalid>
-      <Stack justifyContent="space-between" height="100%">
-        <Stack>
-          <Stack>
-            <FormControl.Label
-              _text={{
-                bold: true,
-              }}
-            >
-              Username
-            </FormControl.Label>
-            <Input
-              size="lg"
-              variant="underlined"
-              p={2}
-              placeholder="username"
-              onChangeText={value => setValue('username', value)}
-            />
-            <Box height={6}>
-              <FormControl.ErrorMessage>
-                {errors.username}
-              </FormControl.ErrorMessage>
-            </Box>
-          </Stack>
-          <Stack>
-            <FormControl.Label
-              _text={{
-                bold: true,
-              }}
-            >
-              Email Address
-            </FormControl.Label>
-            <Input
-              size="lg"
-              variant="underlined"
-              p={2}
-              placeholder="email address"
-              onChangeText={value => setValue('email', value)}
-            />
-            <Box height={6}>
-              <FormControl.ErrorMessage>
-                {errors.email}
-              </FormControl.ErrorMessage>
-            </Box>
-          </Stack>
-          <Stack>
-            <FormControl.Label
-              _text={{
-                bold: true,
-              }}
-            >
-              Password
-            </FormControl.Label>
-            <Input
-              size="lg"
-              variant="underlined"
-              p={2}
-              type="password"
-              placeholder="Password"
-              onChangeText={value => setValue('password', value)}
-            />
-            <Box height={6}>
-              <FormControl.ErrorMessage>
-                {errors.password}
-              </FormControl.ErrorMessage>
-            </Box>
-          </Stack>
-        </Stack>
-        <Button size="lg" onPress={() => onSubmit(handleSubmit)} mt="5">
-          Register
-        </Button>
-      </Stack>
-    </FormControl>
+    <GenericFormProvider
+      submitText="Login"
+      onSubmit={handleSubmit}
+      py={12}
+      px={8}
+    >
+      <InputController
+        name="username"
+        label="Username"
+        rules={{
+          required: 'Username is require.',
+        }}
+        placeholder="email address"
+        size="lg"
+        variant="underlined"
+      />
+      <InputController
+        name="email"
+        label="Email Address"
+        rules={{
+          required: 'Email address is require.',
+          pattern: {
+            value: EMAIL_REGEX,
+            message: 'Must be valid Email',
+          },
+        }}
+        placeholder="email address"
+        size="lg"
+        variant="underlined"
+      />
+      <InputController
+        name="password"
+        label="Password"
+        rules={{
+          required: 'Password is require.',
+        }}
+        size="lg"
+        placeholder="password"
+        variant="underlined"
+        type="password"
+      />
+    </GenericFormProvider>
   )
 }
 

@@ -26,7 +26,7 @@ const Home: React.FC = () => {
         >
           <Text color="primary.500">
             <Ionicons name="trophy" color={colors.primary[600]} size={23} />{' '}
-            อันดับเมนูอาหารวันนี้
+            เมนูอาหารยอดนิยม
           </Text>
           <Text color="primary.500">ดูทั้งหมด</Text>
         </Stack>

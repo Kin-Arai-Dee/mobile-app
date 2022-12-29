@@ -4,7 +4,7 @@ export const mockFood: IUser = {
   userID: 'admin',
   username: 'James',
   mail: 'yugijamedi@outlook.com',
-  profilePic:
+  imageUrl:
     'https://cdn.discordapp.com/attachments/906634604860039168/906634663815184394/IMG_4991.JPG',
   age: 21,
   weight: 53,

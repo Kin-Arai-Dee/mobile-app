@@ -27,7 +27,13 @@ const CustomTabBar: FC<CustomTabBarProps> = ({
       backgroundColor="white"
     >
       <Center>
-        <Image width={175} height={175} m={60} source={QUESTION_IMAGE} />
+        <Image
+          width={175}
+          height={175}
+          m={60}
+          source={QUESTION_IMAGE}
+          alt="logo"
+        />
       </Center>
       <Box flexDirection="row">
         {navigationState.routes.map((route, i) => {

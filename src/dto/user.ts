@@ -2,7 +2,7 @@ export interface IUser {
   userID: string
   username: string
   mail: string
-  profilePic: string
+  imageUrl: string
   age: number
   weight: number
   height: number
