@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import { IUserRegisterForm } from 'dto/user'
-import useForm from 'hooks/useForm'
 import GenericFormProvider from 'components/hook-form/FormProvider'
 import InputController from 'components/hook-form/InputController'
 import { EMAIL_REGEX } from 'constants/regex'
@@ -25,11 +24,6 @@ const requireField: (keyof IUserRegisterForm)[] = [
 
 const Register: React.FC = () => {
   const navigation = useNavigation<RegisterNavigationProp>()
-
-  const { errors, setValue, onSubmit } = useForm<IUserRegisterForm>({
-    defaultData,
-    requireField,
-  })
 
   const handleSubmit = (data: IUserRegisterForm) => {
     console.log(data)
