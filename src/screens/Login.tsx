@@ -8,16 +8,21 @@ import { IUserLoginForm } from 'dto/user'
 import { SceneRendererProps } from 'react-native-tab-view'
 import GenericFormProvider from 'components/hook-form/FormProvider'
 import InputController from 'components/hook-form/InputController'
-import { EMAIL_REGEX } from 'constants/regex'
+
+import { useAuthContext } from '../contexts/AuthContext'
 
 type LoginNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
 const Login: React.FC<SceneRendererProps> = props => {
   const navigation = useNavigation<LoginNavigationProp>()
+  const { login } = useAuthContext()
 
-  const handleSubmit = (data: IUserLoginForm) => {
-    console.log(data)
-    navigation.replace('HomeTabs')
+  const handleSubmit = async (data: IUserLoginForm) => {
+    try {
+      login(data)
+    } catch (e) {
+      alert(e?.response?.detail)
+    }
   }
 
   return (
@@ -28,16 +33,12 @@ const Login: React.FC<SceneRendererProps> = props => {
       px={8}
     >
       <InputController
-        name="email"
-        label="Email Address"
+        name="username"
+        label="Username"
         rules={{
-          required: 'Email address is require.',
-          pattern: {
-            value: EMAIL_REGEX,
-            message: 'Must be valid Email',
-          },
+          required: 'Username is require.',
         }}
-        placeholder="email address"
+        placeholder="username"
         size="lg"
         variant="underlined"
       />

@@ -26,7 +26,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
           size={size === 'medium' ? '40' : '64'}
           mt={`-${size === 'medium' ? '20%' : '10%'}`}
           source={{
-            uri: food.foodPic,
+            uri: food.imageUrl,
           }}
           shadow="1"
         />

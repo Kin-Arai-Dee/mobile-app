@@ -14,6 +14,7 @@ const InputController: FC<InputControllerProps> = ({
   name,
   label,
   rules,
+  autoCapitalize,
   ...props
 }) => {
   const { control, formState } = useFormContext()
@@ -39,6 +40,7 @@ const InputController: FC<InputControllerProps> = ({
         render={({ field: { value, onChange, onBlur } }) => (
           <Input
             onBlur={onBlur}
+            autoCapitalize={autoCapitalize || 'none'}
             value={value}
             onChangeText={value => onChange(value)}
             {...props}

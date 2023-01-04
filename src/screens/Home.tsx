@@ -4,19 +4,20 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import FoodCard from 'components/FoodCard'
-import { mockFoods } from '../mocks/food'
 import { Ionicons } from '@expo/vector-icons'
+import useAutoGetTopFood from 'hooks/useAuthGetTopFood'
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>
 
 const Home: React.FC = () => {
   const navigation = useNavigation<homeScreenProp>()
+  const topFoods = useAutoGetTopFood()
 
   const { colors } = useTheme()
   return (
     <Box m="5">
       <VStack space="16">
-        <Text fontSize="4xl" bold mb="30">
+        <Text fontWeight="500" fontSize="4xl" mb="30">
           เมนูอาหารสำหรับคุณ
         </Text>
         <Stack
@@ -35,8 +36,8 @@ const Home: React.FC = () => {
           showsHorizontalScrollIndicator={false}
           pagingEnabled={true}
         >
-          {mockFoods.map(food => (
-            <Box width={220} key={food.foodID}>
+          {topFoods.map(food => (
+            <Box width={220} key={food.foodId}>
               <FoodCard food={food} />
             </Box>
           ))}

@@ -18,6 +18,19 @@ export const nativeTheme = extendTheme({
       elevation: 11,
     },
   },
+  fontConfig: {
+    prompt: {
+      400: {
+        normal: 'Prompt_400Regular',
+      },
+      500: {
+        normal: 'Prompt_500Medium',
+      },
+      600: {
+        normal: 'Prompt_600SemiBold',
+      },
+    },
+  },
   colors: {
     primary: {
       50: '#fff7ed',
@@ -31,6 +44,11 @@ export const nativeTheme = extendTheme({
       800: '#9a3412',
       900: '#7c2d12',
     },
+  },
+  fonts: {
+    heading: 'prompt',
+    body: 'prompt',
+    mono: 'prompt',
   },
 })
 

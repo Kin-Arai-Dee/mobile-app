@@ -4,8 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { navigationItems } from '../Routes/bottom'
 import { useTheme } from 'native-base'
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from 'Routes/RootStackParam'
+import { useAuthContext } from '../contexts/AuthContext'
+import { useNavigation } from '@react-navigation/native'
 
 const Tab = createBottomTabNavigator()
 
@@ -14,8 +16,23 @@ export type HomeTabsScreenProp = StackScreenProps<
   'HomeTabs'
 >
 
+type HomeTabsNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'HomeTabs'
+>
+
 const HomeTabs: React.FC<HomeTabsScreenProp> = ({ route }) => {
+  const navigation = useNavigation<HomeTabsNavigationProp>()
+
+  const { user } = useAuthContext()
+
   const { colors } = useTheme()
+
+  useEffect(() => {
+    if (!user.userId) {
+      navigation.replace('Auth')
+    }
+  }, [user.userId])
 
   return (
     <Tab.Navigator

@@ -11,8 +11,8 @@ import { EMAIL_REGEX } from 'constants/regex'
 type RegisterNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
 const defaultData: IUserRegisterForm = {
-  username: '',
   email: '',
+  username: '',
   password: '',
 }
 

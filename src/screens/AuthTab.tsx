@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { Button, View } from 'native-base'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { TabView, SceneMap, SceneRendererProps } from 'react-native-tab-view'
@@ -8,6 +8,7 @@ import { RootStackParamList } from 'Routes/RootStackParam'
 import Login from 'screens/Login'
 import Register from 'screens/Register'
 import CustomTabBar from 'components/TabBar'
+import { useAuthContext } from '../contexts/AuthContext'
 
 export type AuthScreenProp = StackScreenProps<RootStackParamList, 'Auth'>
 
