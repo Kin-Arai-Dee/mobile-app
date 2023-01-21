@@ -4,6 +4,7 @@ import { IUser } from 'dto/user'
 import APIClient from 'cores/APIClient'
 import { RequestMethod, RequestType } from 'cores/BaseAPIClient'
 import * as SecureStore from 'expo-secure-store'
+import { AxiosError } from 'axios'
 
 class AuthService {
   static client = new APIClient({})
@@ -63,7 +64,9 @@ class AuthService {
 
       return data
     } catch (e) {
-      alert(e.detail)
+      const { response } = e as AxiosError
+
+      alert(response?.data?.detail)
     }
   }
 }

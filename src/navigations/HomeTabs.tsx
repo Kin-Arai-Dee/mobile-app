@@ -54,7 +54,10 @@ const HomeTabs: React.FC<HomeTabsScreenProp> = ({ route }) => {
                 <Ionicons
                   name={`${icon}${focused ? '' : '-outline'}`}
                   color={colors.primary[500]}
-                  size={22}
+                  size={28}
+                  style={{
+                    marginTop: 18,
+                  }}
                 />
               </View>
             ),

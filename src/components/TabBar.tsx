@@ -49,7 +49,9 @@ const CustomTabBar: FC<CustomTabBarProps> = ({
               p="3"
             >
               <Pressable onPress={() => setIndex(i)}>
-                <Heading size="md">{route.title}</Heading>
+                <Heading fontFamily="Prompt_500Medium" size="md">
+                  {route.title}
+                </Heading>
               </Pressable>
             </Box>
           )

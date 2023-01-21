@@ -1,11 +1,16 @@
 import { ITimeStamp } from './base'
 import { TokenResponse } from './token'
 
+export enum Gender {
+  Male = 'male',
+  Female = 'female',
+}
+
 export interface IUser extends ITimeStamp {
   userId: string
   username: string
   email: string
-  gender: 'male' | 'female'
+  gender: Gender
   age: Number
   weight: Number
   height: Number
@@ -13,7 +18,7 @@ export interface IUser extends ITimeStamp {
   banFood: string[]
 }
 
-export interface IUpdateUsere
+export interface IUpdateUser
   extends Omit<
     IUser,
     | 'userId'

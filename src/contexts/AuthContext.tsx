@@ -8,8 +8,8 @@ import Spinner from 'react-native-loading-spinner-overlay/lib'
 export interface AuthContextValue {
   user: IUser
   setUser: (user: IUser) => void
-  login: (loginForm: IUserLoginForm) => void
-  register: (registerForm: IUserRegisterForm) => void
+  login: (loginForm: IUserLoginForm) => Promise<void>
+  register: (registerForm: IUserRegisterForm) => Promise<void>
 }
 
 export const AuthContext = createContext({} as AuthContextValue)

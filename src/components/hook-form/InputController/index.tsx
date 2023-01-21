@@ -22,7 +22,7 @@ const InputController: FC<InputControllerProps> = ({
   const error = formState.errors[name]
 
   return (
-    <FormControl isRequired isInvalid={!!error}>
+    <FormControl isRequired={!!rules?.required} isInvalid={!!error}>
       {label && (
         <FormControl.Label
           _text={{
@@ -43,6 +43,10 @@ const InputController: FC<InputControllerProps> = ({
             autoCapitalize={autoCapitalize || 'none'}
             value={value}
             onChangeText={value => onChange(value)}
+            _focus={{
+              borderColor: 'primary.400',
+              bg: 'transparent',
+            }}
             {...props}
           />
         )}

@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import { Button, View } from 'native-base'
-import React, { useEffect } from 'react'
+import { View } from 'native-base'
+import React, { useState } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaView, useWindowDimensions } from 'react-native'
 import { TabView, SceneMap, SceneRendererProps } from 'react-native-tab-view'
@@ -8,7 +8,6 @@ import { RootStackParamList } from 'Routes/RootStackParam'
 import Login from 'screens/Login'
 import Register from 'screens/Register'
 import CustomTabBar from 'components/TabBar'
-import { useAuthContext } from '../contexts/AuthContext'
 
 export type AuthScreenProp = StackScreenProps<RootStackParamList, 'Auth'>
 
@@ -20,8 +19,8 @@ const renderScene = SceneMap<SceneRendererProps>({
 export default function AuthTab(props: AuthScreenProp) {
   const layout = useWindowDimensions()
 
-  const [index, setIndex] = React.useState(0)
-  const [routes] = React.useState([
+  const [index, setIndex] = useState(0)
+  const [routes] = useState([
     { key: 'login', title: 'เข้าสู่ระบบ' },
     { key: 'register', title: 'สมัครสมาชิก' },
   ])

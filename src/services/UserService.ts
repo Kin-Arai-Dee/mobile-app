@@ -1,6 +1,7 @@
-import { IUser } from 'dto/user'
+import { IUpdateUser, IUser } from 'dto/user'
 import APIClient from 'cores/APIClient'
 import { RequestMethod } from 'cores/BaseAPIClient'
+import { IFoodHistoryList } from 'dto/history'
 
 class UserService {
   static client = new APIClient({
@@ -14,7 +15,7 @@ class UserService {
     })
   }
 
-  static async updateUserData(userId: string) {
+  static async updateUserData(userId: string, userData: IUpdateUser) {
     return this.client.fetch<IUser>({
       path: `/${userId}`,
       method: RequestMethod.Patch,
@@ -22,7 +23,7 @@ class UserService {
   }
 
   static async getUserHistory(userId: string) {
-    return this.client.fetch<IUser>({
+    return this.client.fetch<IFoodHistoryList>({
       path: `/history/${userId}`,
       method: RequestMethod.Get,
       params: {

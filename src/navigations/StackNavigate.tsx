@@ -6,6 +6,8 @@ import AuthTab from 'screens/AuthTab'
 import { useAuthContext } from '../contexts/AuthContext'
 import { Text } from 'native-base'
 import { View } from 'react-native'
+import FoodSelector from 'screens/FoodSelector'
+import Information from 'screens/Information'
 
 const Stack = createStackNavigator()
 
@@ -20,6 +22,17 @@ const StackNavigate = () => {
           <Stack.Screen name="Auth" component={AuthTab} />
         </Stack.Group>
       )}
+
+      {!user.withDescription && (
+        <Stack.Group
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Information" component={Information} />
+          <Stack.Screen name="FoodSelector" component={FoodSelector} />
+        </Stack.Group>
+      )}
       {/* Screens for logged in users */}
       <Stack.Group screenOptions={{ presentation: 'card' }}>
         <Stack.Screen
@@ -31,7 +44,7 @@ const StackNavigate = () => {
         />
       </Stack.Group>
       {/* Common modal screens */}
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Group screenOptions={{ presentation: 'card' }}>
         <Stack.Screen name="FoodDetail" component={FoodDetail} />
       </Stack.Group>
     </Stack.Navigator>

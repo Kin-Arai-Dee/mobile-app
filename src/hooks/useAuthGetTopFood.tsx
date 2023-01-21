@@ -10,8 +10,6 @@ const useAutoGetTopFood = () => {
     try {
       const foodList = await FoodService.getTopFood()
 
-      console.log(foodList)
-
       setTopFoods(foodList.data)
     } catch (e) {
       console.log(e)

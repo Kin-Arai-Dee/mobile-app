@@ -7,6 +7,9 @@ import { IUserRegisterForm } from 'dto/user'
 import GenericFormProvider from 'components/hook-form/FormProvider'
 import InputController from 'components/hook-form/InputController'
 import { EMAIL_REGEX } from 'constants/regex'
+import { useAuthContext } from '../contexts/AuthContext'
+import { AxiosError } from 'axios'
+import { Alert } from 'react-native'
 
 type RegisterNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
@@ -24,18 +27,26 @@ const requireField: (keyof IUserRegisterForm)[] = [
 
 const Register: React.FC = () => {
   const navigation = useNavigation<RegisterNavigationProp>()
+  const { register } = useAuthContext()
 
-  const handleSubmit = (data: IUserRegisterForm) => {
-    console.log(data)
-    navigation.replace('HomeTabs')
+  const handleSubmit = async (data: IUserRegisterForm) => {
+    try {
+      await register(data)
+      navigation.replace('HomeTabs')
+    } catch (e) {
+      const { response } = e as AxiosError
+
+      Alert.alert('Register Failed', response?.data.detail)
+    }
   }
 
   return (
     <GenericFormProvider
-      submitText="Login"
+      submitText="Register"
       onSubmit={handleSubmit}
       py={12}
       px={8}
+      resetAfterFail={{}}
     >
       <InputController
         name="username"
@@ -43,7 +54,7 @@ const Register: React.FC = () => {
         rules={{
           required: 'Username is require.',
         }}
-        placeholder="email address"
+        placeholder="username"
         size="lg"
         variant="underlined"
       />

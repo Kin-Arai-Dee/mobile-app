@@ -15,9 +15,9 @@ class PredictionService {
     })
   }
 
-  static sumitPredictionResult(body: IBodyPredictionResult) {
+  static submitPredictionResult(foodId: string, body: IBodyPredictionResult) {
     return this.client.fetch({
-      path: '/food',
+      path: `/submit/${foodId}`,
       method: RequestMethod.Post,
       body: body,
     })
