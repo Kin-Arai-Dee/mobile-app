@@ -14,6 +14,16 @@ class FoodService {
     })
   }
 
+  static async getRamdomUnvotedFood(size?: number) {
+    return this.client.fetch<IFoodNameList>({
+      path: '/unvoted-food-list',
+      method: RequestMethod.Get,
+      params: {
+        size,
+      },
+    })
+  }
+
   static async getUserFavoriteFood() {
     return this.client.fetch<IFoodList>({
       path: '/favorite-food',
@@ -32,6 +42,16 @@ class FoodService {
     return this.client.fetch({
       path: `/never-show/${foodId}`,
       method: RequestMethod.Patch,
+    })
+  }
+
+  static async updateInteract(foodId: string, interact: number) {
+    return this.client.fetch<IFoodNameList>({
+      path: `/interact/${foodId}`,
+      method: RequestMethod.Patch,
+      params: {
+        interact,
+      },
     })
   }
 }

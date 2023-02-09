@@ -15,6 +15,10 @@ export interface IFood extends ITimeStamp {
 export interface IFoodName {
   foodId: string
   foodName: string
+  imageUrl: string
+  calories: Number
+  categorie: string
+  cookMethod: string
 }
 
 export type IFoodNameList = ListResponse<IFoodName>

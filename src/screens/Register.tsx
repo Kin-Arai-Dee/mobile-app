@@ -10,6 +10,7 @@ import { EMAIL_REGEX } from 'constants/regex'
 import { useAuthContext } from '../contexts/AuthContext'
 import { AxiosError } from 'axios'
 import { Alert } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 type RegisterNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
@@ -32,7 +33,6 @@ const Register: React.FC = () => {
   const handleSubmit = async (data: IUserRegisterForm) => {
     try {
       await register(data)
-      navigation.replace('HomeTabs')
     } catch (e) {
       const { response } = e as AxiosError
 
@@ -41,49 +41,51 @@ const Register: React.FC = () => {
   }
 
   return (
-    <GenericFormProvider
-      submitText="Register"
-      onSubmit={handleSubmit}
-      py={12}
-      px={8}
-      resetAfterFail={{}}
-    >
-      <InputController
-        name="username"
-        label="Username"
-        rules={{
-          required: 'Username is require.',
-        }}
-        placeholder="username"
-        size="lg"
-        variant="underlined"
-      />
-      <InputController
-        name="email"
-        label="Email Address"
-        rules={{
-          required: 'Email address is require.',
-          pattern: {
-            value: EMAIL_REGEX,
-            message: 'Must be valid Email',
-          },
-        }}
-        placeholder="email address"
-        size="lg"
-        variant="underlined"
-      />
-      <InputController
-        name="password"
-        label="Password"
-        rules={{
-          required: 'Password is require.',
-        }}
-        size="lg"
-        placeholder="password"
-        variant="underlined"
-        type="password"
-      />
-    </GenericFormProvider>
+    <KeyboardAwareScrollView extraScrollHeight={30} keyboardOpeningTime={0}>
+      <GenericFormProvider
+        submitText="สมัครสมาชิก"
+        onSubmit={handleSubmit}
+        py={12}
+        px={8}
+        resetAfterFail={{}}
+      >
+        <InputController
+          name="username"
+          label="Username"
+          rules={{
+            required: 'Username is require.',
+          }}
+          placeholder="username"
+          size="lg"
+          variant="underlined"
+        />
+        <InputController
+          name="email"
+          label="Email Address"
+          rules={{
+            required: 'Email address is require.',
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Must be valid Email',
+            },
+          }}
+          placeholder="email address"
+          size="lg"
+          variant="underlined"
+        />
+        <InputController
+          name="password"
+          label="Password"
+          rules={{
+            required: 'Password is require.',
+          }}
+          size="lg"
+          placeholder="password"
+          variant="underlined"
+          type="password"
+        />
+      </GenericFormProvider>
+    </KeyboardAwareScrollView>
   )
 }
 

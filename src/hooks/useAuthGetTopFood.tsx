@@ -5,8 +5,10 @@ import FoodService from 'services/FoodService'
 
 const useAutoGetTopFood = () => {
   const [topFoods, setTopFoods] = useState<IFood[]>([])
+  const [loading, setLoading] = useState(false)
 
   const fetchTopFood = async () => {
+    setLoading(true)
     try {
       const foodList = await FoodService.getTopFood()
 
@@ -14,13 +16,14 @@ const useAutoGetTopFood = () => {
     } catch (e) {
       console.log(e)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
     fetchTopFood()
   }, [])
 
-  return topFoods
+  return { topFoods, loading }
 }
 
 export default useAutoGetTopFood

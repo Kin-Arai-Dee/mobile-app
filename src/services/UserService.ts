@@ -19,6 +19,7 @@ class UserService {
     return this.client.fetch<IUser>({
       path: `/${userId}`,
       method: RequestMethod.Patch,
+      body: userData,
     })
   }
 
@@ -30,6 +31,13 @@ class UserService {
         start: 0,
         limit: 100,
       },
+    })
+  }
+
+  static async setUserAsReady(userId: string) {
+    return this.client.fetch<IUser>({
+      path: `/ready/${userId}`,
+      method: RequestMethod.Patch,
     })
   }
 }

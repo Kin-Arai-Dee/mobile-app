@@ -1,3 +1,4 @@
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { StackScreenProps } from '@react-navigation/stack'
 import { View } from 'native-base'
 import React, { useState } from 'react'

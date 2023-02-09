@@ -3,7 +3,7 @@ import { Box, Text, ScrollView } from 'native-base'
 import useAutoGetHistoryLog from 'hooks/useAutoGetHistoryLog'
 import HistoryItem from 'components/HistoryItem'
 
-const Target: React.FC = () => {
+const HistoryFood: React.FC = () => {
   const historyLog = useAutoGetHistoryLog()
 
   return (
@@ -20,4 +20,4 @@ const Target: React.FC = () => {
   )
 }
 
-export default Target
+export default HistoryFood

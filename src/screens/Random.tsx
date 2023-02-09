@@ -14,13 +14,8 @@ const Random: React.FC = () => {
     switch (state) {
       case PredictionState.Init:
         return (
-          <Button rounded="full" py="4" mt="6">
-            <Text
-              fontSize="xl"
-              color="white"
-              fontWeight="500"
-              onPress={onHandleRandom}
-            >
+          <Button rounded="full" py="4" mt="6" onPress={onHandleRandom}>
+            <Text fontSize="xl" color="white" fontWeight="500">
               กินอะไรดี ?
             </Text>
           </Button>
@@ -37,23 +32,20 @@ const Random: React.FC = () => {
               variant="outline"
               flex="1"
               bgColor="white"
+              onPress={onHandleRandom}
             >
-              <Text
-                fontSize="xl"
-                color="primary.400"
-                fontWeight="500"
-                onPress={onHandleRandom}
-              >
+              <Text fontSize="xl" color="primary.400" fontWeight="500">
                 สุ่มใหม่
               </Text>
             </Button>
-            <Button rounded="full" py="4" mt="6" flex="1">
-              <Text
-                fontSize="xl"
-                color="white"
-                fontWeight="500"
-                onPress={() => onSubmitResult(true)}
-              >
+            <Button
+              rounded="full"
+              py="4"
+              mt="6"
+              flex="1"
+              onPress={() => onSubmitResult(true)}
+            >
+              <Text fontSize="xl" color="white" fontWeight="500">
                 กินเลย
               </Text>
             </Button>
@@ -69,23 +61,20 @@ const Random: React.FC = () => {
               variant="outline"
               flex="1"
               bgColor="white"
+              onPress={onHandleRandom}
             >
-              <Text
-                fontSize="xl"
-                color="primary.400"
-                fontWeight="500"
-                onPress={onHandleRandom}
-              >
+              <Text fontSize="xl" color="primary.400" fontWeight="500">
                 กินอย่างอื่น
               </Text>
             </Button>
-            <Button rounded="full" py="4" mt="6" flex="1">
-              <Text
-                fontSize="xl"
-                color="white"
-                fontWeight="500"
-                onPress={() => onSubmitResult(true)}
-              >
+            <Button
+              rounded="full"
+              py="4"
+              mt="6"
+              flex="1"
+              onPress={() => onSubmitResult(true)}
+            >
+              <Text fontSize="xl" color="white" fontWeight="500">
                 กินเลย
               </Text>
             </Button>

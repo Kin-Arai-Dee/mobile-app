@@ -27,9 +27,7 @@ export interface IUpdateUser
     | 'withDescription'
     | 'createAt'
     | 'updateAt'
-  > {
-  isFirstTime?: boolean
-}
+  > {}
 export interface IUserLoginForm {
   username: string
   password: string

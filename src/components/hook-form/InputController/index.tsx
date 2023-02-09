@@ -3,6 +3,8 @@ import React from 'react'
 import { FC } from 'react'
 import { Controller, useFormContext, ControllerProps } from 'react-hook-form'
 
+const NUMBER_PAD_TYPE = ['number-pad', 'decimal-pad']
+
 export interface InputControllerProps
   extends Omit<IInputProps, 'value' | 'onChangeText' | 'onBlur'> {
   name: string
@@ -15,6 +17,7 @@ const InputController: FC<InputControllerProps> = ({
   label,
   rules,
   autoCapitalize,
+  keyboardType,
   ...props
 }) => {
   const { control, formState } = useFormContext()
@@ -41,8 +44,15 @@ const InputController: FC<InputControllerProps> = ({
           <Input
             onBlur={onBlur}
             autoCapitalize={autoCapitalize || 'none'}
-            value={value}
-            onChangeText={value => onChange(value)}
+            value={value ? `${value}` : ''}
+            keyboardType={keyboardType}
+            onChangeText={value => {
+              if (keyboardType && NUMBER_PAD_TYPE.includes(keyboardType)) {
+                onChange(+value)
+              } else {
+                onChange(value)
+              }
+            }}
             _focus={{
               borderColor: 'primary.400',
               bg: 'transparent',

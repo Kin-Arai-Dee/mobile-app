@@ -60,7 +60,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
           <Box px="4" pb="4">
             {isShowCal && (
               <Text fontWeight="500" fontSize="md" color="primary.600">
-                แคลลอรี่ {food?.calories}
+                {`แคลลอรี่ ${food?.calories}`}
               </Text>
             )}
           </Box>

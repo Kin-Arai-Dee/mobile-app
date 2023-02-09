@@ -19,14 +19,14 @@ import {
   useFieldArray,
 } from 'react-hook-form'
 
-export interface InputControllerProps
+export interface ArrayInputControllerProps
   extends Omit<IInputProps, 'value' | 'onChangeText' | 'onBlur'> {
   name: string
   label?: string
   rules?: ControllerProps['rules']
 }
 
-const ArrayInputController: FC<InputControllerProps> = ({
+const ArrayInputController: FC<ArrayInputControllerProps> = ({
   name,
   label,
   rules,
@@ -55,7 +55,7 @@ const ArrayInputController: FC<InputControllerProps> = ({
       )}
       <VStack space="4" mb="4" mt="2">
         {fields.map((field, index) => (
-          <Stack direction="row" space="2">
+          <Stack direction="row" space="2" key={field.id}>
             <Stack flex="1">
               <Controller
                 name={`${name}.${index}`}

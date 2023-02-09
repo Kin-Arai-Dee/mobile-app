@@ -4,19 +4,18 @@ import HomeTabs from './HomeTabs'
 import FoodDetail from 'screens/FoodDetail'
 import AuthTab from 'screens/AuthTab'
 import { useAuthContext } from '../contexts/AuthContext'
-import { Text } from 'native-base'
-import { View } from 'react-native'
 import FoodSelector from 'screens/FoodSelector'
 import Information from 'screens/Information'
+import { RootStackParamList } from 'Routes/RootStackParam'
+import HistoryFood from 'screens/HistoryFood'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParamList>()
 
 const StackNavigate = () => {
   const { user } = useAuthContext()
 
   return (
     <Stack.Navigator>
-      {/* Auth screens */}
       {!user.userId && (
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Auth" component={AuthTab} />
@@ -26,26 +25,55 @@ const StackNavigate = () => {
       {!user.withDescription && (
         <Stack.Group
           screenOptions={{
-            headerShown: false,
+            presentation: 'card',
           }}
         >
-          <Stack.Screen name="Information" component={Information} />
-          <Stack.Screen name="FoodSelector" component={FoodSelector} />
+          <Stack.Screen
+            name="Information"
+            component={Information}
+            options={{
+              headerTitle: 'กรอกข้อมูลส่วนตัว',
+            }}
+          />
+          <Stack.Screen
+            name="FoodSelector"
+            component={FoodSelector}
+            options={{
+              headerTitle: 'ปัดอาหารที่คุณชอบ',
+            }}
+          />
         </Stack.Group>
       )}
+
       {/* Screens for logged in users */}
       <Stack.Group screenOptions={{ presentation: 'card' }}>
         <Stack.Screen
           name="HomeTabs"
           component={HomeTabs}
           options={{
-            headerTitle: 'Kin Arai Dee',
+            headerShown: false,
           }}
         />
       </Stack.Group>
       {/* Common modal screens */}
-      <Stack.Group screenOptions={{ presentation: 'card' }}>
+      <Stack.Group
+        screenOptions={{ presentation: 'card', headerBackTitleVisible: false }}
+      >
+        <Stack.Screen
+          name="UpdateInformation"
+          component={Information}
+          options={{
+            headerTitle: 'แก้ไขข้อมูลส่วนตัว',
+          }}
+        />
         <Stack.Screen name="FoodDetail" component={FoodDetail} />
+        <Stack.Screen
+          name="FoodHistory"
+          component={HistoryFood}
+          options={{
+            headerTitle: 'ประวัติการสุ่ม',
+          }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   )

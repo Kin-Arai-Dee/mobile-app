@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { navigationItems } from '../Routes/bottom'
-import { useTheme } from 'native-base'
+import { useTheme, Text, Stack } from 'native-base'
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import { useAuthContext } from '../contexts/AuthContext'
@@ -37,30 +37,33 @@ const HomeTabs: React.FC<HomeTabsScreenProp> = ({ route }) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        tabBarStyle: { paddingLeft: 10, paddingRight: 10, paddingTop: 30 },
       }}
     >
-      {navigationItems.map(({ name, component, icon }) => (
+      {navigationItems.map(({ name, component, label, icon, title }) => (
         <Tab.Screen
           key={name}
           name={name}
           component={component}
           options={{
-            tabBarLabel: () => {
-              return null
+            headerTitle: title,
+            tabBarLabel: ({ focused }) => {
+              return (
+                <Stack justifyContent="center" alignItems="center">
+                  <Ionicons
+                    name={`${icon}${focused ? '' : '-outline'}`}
+                    color={focused ? colors.primary[500] : colors.primary[400]}
+                    size={26}
+                  />
+                  <Text
+                    fontSize="xs"
+                    color={focused ? 'primary.500' : 'primary.400'}
+                  >
+                    {label}
+                  </Text>
+                </Stack>
+              )
             },
-            tabBarIcon: ({ focused }) => (
-              <View>
-                <Ionicons
-                  name={`${icon}${focused ? '' : '-outline'}`}
-                  color={colors.primary[500]}
-                  size={28}
-                  style={{
-                    marginTop: 18,
-                  }}
-                />
-              </View>
-            ),
           }}
         />
       ))}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack'
 import { AxiosError } from 'axios'
 import GenericFormProvider from 'components/hook-form/FormProvider'
 import InputController from 'components/hook-form/InputController'
@@ -8,25 +8,32 @@ import { Gender, IUpdateUser } from '../dto/user'
 import { Alert, ScrollView } from 'react-native'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import UserService from 'services/UserService'
-import { Stack, Text, View } from 'native-base'
+import { Stack, Text } from 'native-base'
 import SelectController from 'components/hook-form/SelectController'
 import ArrayInputController from 'components/hook-form/ArrayInputController'
+import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-export type ProfileScreenProp = StackScreenProps<
-  RootStackParamList,
-  'Information'
->
+type LoginNavigationProp = StackNavigationProp<RootStackParamList>
 
-const Information: React.FC<ProfileScreenProp> = ({ navigation }) => {
-  const { user } = useAuthContext()
+type InformationProps = StackScreenProps<RootStackParamList>
+
+const Information: React.FC<InformationProps> = ({ route }) => {
+  const { user, setUser } = useAuthContext()
+
+  const { replace, goBack } = useNavigation<LoginNavigationProp>()
 
   const handleSubmit = async (data: IUpdateUser) => {
     try {
-      await UserService.updateUserData(user.userId, {
-        ...data,
-        isFirstTime: true,
-      })
-      navigation.navigate('FoodSelector')
+      const userData = await UserService.updateUserData(user.userId, data)
+
+      setUser(userData)
+
+      if (user.withDescription) {
+        goBack()
+      } else {
+        replace('FoodSelector')
+      }
     } catch (e) {
       const { response } = e as AxiosError
 
@@ -35,13 +42,21 @@ const Information: React.FC<ProfileScreenProp> = ({ navigation }) => {
   }
 
   return (
-    <View style={{ height: '100%' }}>
+    <KeyboardAwareScrollView extraScrollHeight={30} keyboardOpeningTime={0}>
       <ScrollView style={{ padding: 16 }}>
         <Text fontWeight="500" fontSize="4xl" fontStyle="normal" mb="5">
-          ข้อมูลส่วนตัว
+          {route.name === 'UpdateInformation'
+            ? 'แก้ไขข้อมูลส่วนตัว'
+            : 'กรอกข้อมูลส่วนตัว'}
         </Text>
         <Stack mb="10">
-          <GenericFormProvider submitText="Next" onSubmit={handleSubmit}>
+          <GenericFormProvider
+            submitText="Next"
+            onSubmit={handleSubmit}
+            formOption={{
+              defaultValues: user,
+            }}
+          >
             <SelectController
               name="gender"
               label="Gender"
@@ -100,7 +115,7 @@ const Information: React.FC<ProfileScreenProp> = ({ navigation }) => {
           </GenericFormProvider>
         </Stack>
       </ScrollView>
-    </View>
+    </KeyboardAwareScrollView>
   )
 }
 
