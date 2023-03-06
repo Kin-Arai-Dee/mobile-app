@@ -49,9 +49,9 @@ const HistoryItem = ({ historyData }: HistoryItemProps) => {
             source={{ uri: food.imageUrl }}
             shadow="3"
           />
-          <Box>
-            <Text fontWeight="500" fontSize="xl">
-              {food.foodName}
+          <Box flexGrow={1} width="170" overflow="hidden">
+            <Text fontWeight="500" fontSize="xl" numberOfLines={1}>
+              {food.title}
             </Text>
             <Text fontSize="md">
               {new Date(time).toLocaleString('th-TH')} น.

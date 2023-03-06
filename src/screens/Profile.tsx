@@ -39,6 +39,7 @@ const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
         onPress: async () => {
           setUser({} as IUser)
           await SecureStore.deleteItemAsync('refreshToken')
+          await SecureStore.deleteItemAsync('accessToken')
         },
       },
     ])
@@ -62,7 +63,7 @@ const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
       </HStack>
       <Box backgroundColor="white" borderRadius="2xl" my="4" minH="370px">
         <Stack direction="row" space="4" p="4">
-          <VStack space={2}>
+          <VStack space={4}>
             <Avatar
               width="110"
               height="110"
@@ -73,6 +74,12 @@ const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
               variant="subtle"
             >
               ประวัติการสุ่ม
+            </Button>
+            <Button
+              onPress={() => navigation.navigate('IngredientState')}
+              variant="subtle"
+            >
+              สถิติการสุ่ม
             </Button>
           </VStack>
           <VStack space="4" flex="1" divider={<Divider />}>
@@ -90,7 +97,7 @@ const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
             {!isEmpty(user.banFood) && (
               <Box px="4" pb="4">
                 อาหารที่แพ้
-                {user.banFood?.map(food => `- ${food}`)}
+                {user.banFood?.map(food => `- ${food.ingredientName}`)}
               </Box>
             )}
           </VStack>

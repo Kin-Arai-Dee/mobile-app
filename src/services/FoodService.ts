@@ -1,4 +1,4 @@
-import { IFoodNameList, IFoodList } from 'dto/food'
+import { IFoodList, ITopIngredient, IIngredientDB } from 'dto/food'
 import APIClient from 'cores/APIClient'
 import { RequestMethod } from 'cores/BaseAPIClient'
 
@@ -7,15 +7,29 @@ class FoodService {
     pathPrefix: '/food',
   })
 
+  static async getAllIngredients() {
+    return this.client.fetch<IIngredientDB>({
+      path: '/ingredients',
+      method: RequestMethod.Get,
+    })
+  }
+
+  static async getTopIngredients() {
+    return this.client.fetch<ITopIngredient>({
+      path: '/top-ingredients',
+      method: RequestMethod.Get,
+    })
+  }
+
   static async getAllFoodName() {
-    return this.client.fetch<IFoodNameList>({
+    return this.client.fetch<IFoodList>({
       path: '/food-list',
       method: RequestMethod.Get,
     })
   }
 
   static async getRamdomUnvotedFood(size?: number) {
-    return this.client.fetch<IFoodNameList>({
+    return this.client.fetch<IFoodList>({
       path: '/unvoted-food-list',
       method: RequestMethod.Get,
       params: {
@@ -45,12 +59,17 @@ class FoodService {
     })
   }
 
-  static async updateInteract(foodId: string, interact: number) {
-    return this.client.fetch<IFoodNameList>({
+  static async updateInteract(
+    foodId: string,
+    interact: number,
+    clusterId: number
+  ) {
+    return this.client.fetch<IFoodList>({
       path: `/interact/${foodId}`,
       method: RequestMethod.Patch,
       params: {
         interact,
+        clusterId,
       },
     })
   }

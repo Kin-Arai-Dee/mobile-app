@@ -1,9 +1,8 @@
 import React from 'react'
-import { NativeBaseProvider, View } from 'native-base'
+import { View } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import StackNavigate from './src/navigations/StackNavigate'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { nativeTheme } from './src/themes/NativeBase'
 import { navigationTheme } from './src/themes/Navigation'
 import AuthProvider from './src/contexts/AuthContext'
 import {
@@ -13,6 +12,7 @@ import {
   Prompt_600SemiBold,
 } from '@expo-google-fonts/prompt'
 import Spinner from 'react-native-loading-spinner-overlay/lib'
+import NativeBaseProviderWithTheme from 'components/NativeBaseProviderWithTheme'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,15 +27,15 @@ export default function App() {
 
   return (
     <NavigationContainer theme={navigationTheme}>
-      <NativeBaseProvider theme={nativeTheme}>
+      <NativeBaseProviderWithTheme>
         <SafeAreaProvider>
-          <View fontFamily="body" height="100%">
+          <View height="100%">
             <AuthProvider>
               <StackNavigate />
             </AuthProvider>
           </View>
         </SafeAreaProvider>
-      </NativeBaseProvider>
+      </NativeBaseProviderWithTheme>
     </NavigationContainer>
   )
 }

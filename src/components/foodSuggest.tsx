@@ -1,12 +1,12 @@
 import React from 'react'
 import { Image, Box, VStack, Pressable } from 'native-base'
-import { IFoodName } from 'dto/food'
+import { IFood } from 'dto/food'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from 'Routes/RootStackParam'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 export interface FoodSuggestProps {
-  food: IFoodName
+  food: IFood
 }
 
 type FoodSuggestNavigationProp = StackNavigationProp<RootStackParamList>

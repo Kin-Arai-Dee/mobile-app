@@ -1,15 +1,20 @@
-import { IUser } from 'dto/user'
+import { Gender, IUser } from 'dto/user'
 
-export const mockFood: IUser = {
-  userID: 'admin',
+export const MOCK_USER: IUser = {
+  userId: 'admin',
   username: 'James',
-  mail: 'yugijamedi@outlook.com',
-  imageUrl:
-    'https://cdn.discordapp.com/attachments/906634604860039168/906634663815184394/IMG_4991.JPG',
+  email: 'yugijamedi@outlook.com',
   age: 21,
   weight: 53,
   height: 176,
-  favoriteFood: ['ไก่ทอด', 'พิซซ่า', 'ซูชิ'],
-  freqFood: 'ซูชิ',
-  banFood: ['กุ้ง'],
+  banFood: [
+    {
+      _id: '12',
+      ingredientName: 'กุ้ง',
+    },
+  ],
+  gender: Gender.Male,
+  withDescription: false,
+  createAt: '',
+  updateAt: '',
 }

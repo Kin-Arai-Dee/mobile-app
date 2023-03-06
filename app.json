@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "mobile-app2",
-    "slug": "mobile-app2",
+    "name": "Kin_Ari_Dee",
+    "slug": "Kin_Ari_Dee",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/images/logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

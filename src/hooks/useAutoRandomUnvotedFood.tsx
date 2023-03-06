@@ -1,9 +1,9 @@
-import { IFoodName } from 'dto/food'
+import { IFood } from 'dto/food'
 import { useEffect, useState } from 'react'
 import FoodService from 'services/FoodService'
 
 export const useAutoRandomUnvotedFood = (limit: number) => {
-  const [foods, setFoods] = useState<IFoodName[]>([])
+  const [foods, setFoods] = useState<IFood[]>([])
   const [loading, setLoading] = useState(false)
 
   const getRamdomUnvotedFood = async () => {

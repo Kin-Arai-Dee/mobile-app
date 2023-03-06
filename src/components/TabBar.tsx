@@ -1,7 +1,8 @@
-import { QUESTION_IMAGE } from 'images'
+import { LOGO } from 'images'
 import { Box, Center, Heading, Pressable, Image } from 'native-base'
 import React, { FC } from 'react'
 import { NavigationState, SceneRendererProps } from 'react-native-tab-view'
+import { processFontFamily } from 'expo-font'
 
 export type CustomTabBarProps = SceneRendererProps & {
   navigationState: NavigationState<{
@@ -27,13 +28,7 @@ const CustomTabBar: FC<CustomTabBarProps> = ({
       backgroundColor="white"
     >
       <Center>
-        <Image
-          width={175}
-          height={175}
-          m={60}
-          source={QUESTION_IMAGE}
-          alt="logo"
-        />
+        <Image width="100%" height={300} mx={60} source={LOGO} alt="logo" />
       </Center>
       <Box flexDirection="row">
         {navigationState.routes.map((route, i) => {
@@ -49,7 +44,10 @@ const CustomTabBar: FC<CustomTabBarProps> = ({
               p="3"
             >
               <Pressable onPress={() => setIndex(i)}>
-                <Heading fontFamily="Prompt_500Medium" size="md">
+                <Heading
+                  fontFamily={processFontFamily('Prompt_500Medium')}
+                  size="md"
+                >
                   {route.title}
                 </Heading>
               </Pressable>

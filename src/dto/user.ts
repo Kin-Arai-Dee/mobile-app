@@ -1,9 +1,11 @@
+import { IIngredientDB } from './food'
 import { ITimeStamp } from './base'
 import { TokenResponse } from './token'
 
 export enum Gender {
   Male = 'male',
   Female = 'female',
+  Other = 'other',
 }
 
 export interface IUser extends ITimeStamp {
@@ -15,7 +17,7 @@ export interface IUser extends ITimeStamp {
   weight: Number
   height: Number
   withDescription: boolean
-  banFood: string[]
+  banFood: IIngredientDB[]
 }
 
 export interface IUpdateUser
@@ -27,7 +29,10 @@ export interface IUpdateUser
     | 'withDescription'
     | 'createAt'
     | 'updateAt'
-  > {}
+    | 'banFood'
+  > {
+  banFood: string[]
+}
 export interface IUserLoginForm {
   username: string
   password: string

@@ -1,4 +1,3 @@
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { StackScreenProps } from '@react-navigation/stack'
 import { View } from 'native-base'
 import React, { useState } from 'react'
@@ -9,6 +8,7 @@ import { RootStackParamList } from 'Routes/RootStackParam'
 import Login from 'screens/Login'
 import Register from 'screens/Register'
 import CustomTabBar from 'components/TabBar'
+import AuthService from 'services/AuthService'
 
 export type AuthScreenProp = StackScreenProps<RootStackParamList, 'Auth'>
 

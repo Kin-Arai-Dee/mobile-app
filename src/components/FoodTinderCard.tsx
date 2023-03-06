@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useAuthContext } from 'contexts/AuthContext'
@@ -10,16 +11,16 @@ import {
   useTheme,
   Text,
   Stack,
-  Box,
   Button,
   VStack,
   HStack,
+  Badge,
 } from 'native-base'
 import React, { ReactNode, useState } from 'react'
-import { View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import Spinner from 'react-native-loading-spinner-overlay/lib'
-import { RootStackParamList } from 'Routes/RootStackParam'
+import { BottomTabParam, RootStackParamList } from 'Routes/RootStackParam'
 import FoodService from 'services/FoodService'
 import UserService from 'services/UserService'
 
@@ -27,6 +28,8 @@ type FoodSelectorNavigationProp = StackNavigationProp<
   RootStackParamList,
   'FoodSelector'
 >
+
+type AppStackNavigationProp = BottomTabNavigationProp<BottomTabParam>
 
 export interface FoodTinderCardProps {
   title?: ReactNode
@@ -45,7 +48,9 @@ function FoodTinderCard({
 
   const { user, setUser } = useAuthContext()
 
-  const { replace } = useNavigation<FoodSelectorNavigationProp>()
+  const { replace, navigate } = useNavigation<
+    FoodSelectorNavigationProp & AppStackNavigationProp
+  >()
   const [isLoading, setIsLoading] = useState(false)
 
   const { foods, loading, refetch } = useAutoRandomUnvotedFood(limit)
@@ -58,7 +63,9 @@ function FoodTinderCard({
 
     setUser(userData)
 
-    replace('HomeTabs')
+    navigate('HomeTabs', {
+      screen: 'Random',
+    })
 
     setIsLoading(false)
   }
@@ -106,47 +113,95 @@ function FoodTinderCard({
               }
 
               return (
-                <Box
-                  height={`${height}px`}
-                  borderRadius="xl"
-                  background="red.200"
-                  overflow="hidden"
+                <Pressable
+                  onPress={() => navigate('FoodDetail2', { food: card })}
                 >
-                  <Image
-                    width="100%"
-                    height={`${height - 100}px`}
-                    source={{ uri: card.imageUrl }}
-                    alt={card.foodName}
-                  />
                   <Stack
-                    justifyContent="center"
-                    background="white"
-                    p={4}
-                    mt="-8px"
-                    borderRadius="lg"
-                    height="108px"
+                    height={`${height}px`}
+                    borderRadius="xl"
+                    background="red.200"
+                    overflow="hidden"
                   >
-                    <Text fontWeight="500" fontSize="2xl">
-                      {card.foodName}
-                    </Text>
-                    <Text color="gray.700" fontSize="md">
-                      วิธีการทำ: {card.cookMethod}
-                    </Text>
-                    <Text color="gray.700" fontSize="md">
-                      แคลลอรี่: {`${card.calories}`} Kcals
-                    </Text>
+                    <Image
+                      width="100%"
+                      source={{ uri: card.imageUrl }}
+                      alt={card.title}
+                      flexGrow="1"
+                    />
+                    <Stack
+                      justifyContent="center"
+                      background="white"
+                      px={4}
+                      py={2}
+                      mt="-8px"
+                      borderRadius="lg"
+                    >
+                      <Text fontWeight="500" fontSize="2xl" numberOfLines={1}>
+                        {card.title}
+                      </Text>
+                      <Text color="gray.700" fontSize="lg">
+                        วิธีปรุง:{' '}
+                        {isEmpty(card.methods) ? (
+                          '-'
+                        ) : (
+                          <>{card.methods.map(method => method.primaryName)} </>
+                        )}
+                      </Text>
+                      <HStack space="1" flexWrap="wrap">
+                        {!isEmpty(card.ingredientTags) &&
+                          card.ingredientTags.map(ingredientTag => (
+                            <Badge
+                              variant="subtle"
+                              rounded="full"
+                              colorScheme="cyan"
+                              _text={{
+                                fontSize: '14',
+                              }}
+                              mt={1}
+                            >
+                              {ingredientTag.primaryName}
+                            </Badge>
+                          ))}
+                        {!isEmpty(card.categories) &&
+                          card.categories.map(categorie => (
+                            <Badge
+                              variant="subtle"
+                              rounded="full"
+                              colorScheme="lime"
+                              _text={{
+                                fontSize: '14',
+                              }}
+                              mt={1}
+                            >
+                              {categorie.primaryName}
+                            </Badge>
+                          ))}
+                      </HStack>
+                    </Stack>
                   </Stack>
-                </Box>
+                </Pressable>
               )
             }}
             onSwipedRight={cardIndex => {
-              FoodService.updateInteract(foods[cardIndex].foodId, 1)
+              FoodService.updateInteract(
+                foods[cardIndex].foodId,
+                1,
+                foods[cardIndex].clusterId
+              )
             }}
             onSwipedLeft={cardIndex => {
-              FoodService.updateInteract(foods[cardIndex].foodId, -1)
+              FoodService.updateInteract(
+                foods[cardIndex].foodId,
+                -1,
+                foods[cardIndex].clusterId
+              )
             }}
             onSwipedTop={cardIndex => {
-              FoodService.updateInteract(foods[cardIndex].foodId, 2)
+              FoodService.updateInteract(
+                foods[cardIndex].foodId,
+                2,
+                foods[cardIndex].clusterId
+              )
             }}
             onSwipedAll={() => {
               nextPage ? setReady() : refetch()

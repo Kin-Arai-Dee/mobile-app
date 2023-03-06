@@ -10,9 +10,10 @@ import { RootStackParamList } from 'Routes/RootStackParam'
 import UserService from 'services/UserService'
 import { Stack, Text } from 'native-base'
 import SelectController from 'components/hook-form/SelectController'
-import ArrayInputController from 'components/hook-form/ArrayInputController'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import MultiSelectController from 'components/hook-form/MultiSelectController'
+import { MOCK_INGREDIENTS } from '../mocks/ingredients'
 
 type LoginNavigationProp = StackNavigationProp<RootStackParamList>
 
@@ -23,9 +24,16 @@ const Information: React.FC<InformationProps> = ({ route }) => {
 
   const { replace, goBack } = useNavigation<LoginNavigationProp>()
 
-  const handleSubmit = async (data: IUpdateUser) => {
+  const handleSubmit = async (data: any) => {
     try {
-      const userData = await UserService.updateUserData(user.userId, data)
+      const newData: IUpdateUser = {
+        ...data,
+        banFood: data.banFood.map((ban: any) => ban._id),
+      }
+
+      alert(JSON.stringify(newData))
+
+      const userData = await UserService.updateUserData(user.userId, newData)
 
       setUser(userData)
 
@@ -74,6 +82,10 @@ const Information: React.FC<InformationProps> = ({ route }) => {
                   label: 'Female',
                   value: Gender.Female,
                 },
+                {
+                  label: 'Other',
+                  value: Gender.Other,
+                },
               ]}
             />
             <InputController
@@ -106,11 +118,14 @@ const Information: React.FC<InformationProps> = ({ route }) => {
               size="lg"
               keyboardType="decimal-pad"
             />
-            <ArrayInputController
+            <MultiSelectController
               name="banFood"
-              label="Ban Food Ingredients"
-              placeholder="ingredients name"
-              size="lg"
+              label="Ban Food"
+              valueField="_id"
+              labelField="ingredientName"
+              placeholder="select food that you ban"
+              list={MOCK_INGREDIENTS.data}
+              errorStyle={{ textColor: 'red' }}
             />
           </GenericFormProvider>
         </Stack>

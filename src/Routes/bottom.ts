@@ -16,18 +16,18 @@ interface NavigationItem {
 
 export const navigationItems: NavigationItem[] = [
   {
-    name: 'Random',
-    title: 'กินอะไรดี',
-    label: 'ทำนาย',
-    component: Random,
-    icon: 'fast-food',
-  },
-  {
     name: 'Home',
     title: 'ปัดการ์ดอาหาร',
     label: 'ปัดอาหาร',
     component: FoodHome,
     icon: 'restaurant',
+  },
+  {
+    name: 'Random',
+    title: 'กินอะไรดี',
+    label: 'ทำนาย',
+    component: Random,
+    icon: 'fast-food',
   },
   {
     name: 'Trophy',
