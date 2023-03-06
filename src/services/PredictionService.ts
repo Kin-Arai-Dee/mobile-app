@@ -8,10 +8,13 @@ class PredictionService {
     pathPrefix: '/prediction',
   })
 
-  static predictionFood() {
+  static predictionFood(force = false) {
     return this.client.fetch<IFoodList>({
       path: '/food',
       method: RequestMethod.Get,
+      params: {
+        force,
+      },
     })
   }
 

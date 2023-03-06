@@ -48,13 +48,6 @@ const StackNavigate = () => {
               headerTitle: 'กรอกข้อมูลส่วนตัว',
             }}
           />
-          <Stack.Screen
-            name="FoodSelector"
-            component={FoodSelector}
-            options={{
-              headerTitle: 'ปัดอาหารตามความชอบ',
-            }}
-          />
         </Stack.Group>
       )}
 
@@ -71,6 +64,13 @@ const StackNavigate = () => {
           component={HomeTabs}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="FoodSelector"
+          component={FoodSelector}
+          options={{
+            headerTitle: 'ปัดอาหารตามความชอบ',
           }}
         />
       </Stack.Group>

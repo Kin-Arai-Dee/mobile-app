@@ -4,7 +4,7 @@
     "slug": "Kin_Ari_Dee",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/images/logo.png",
+    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,7 +15,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "67136495-8723-4794-ad51-e623c1bb0a05"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "abce23a9-8d75-4778-9ba7-694a22cb882b"
+      }
     }
   }
 }

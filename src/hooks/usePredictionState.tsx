@@ -3,6 +3,10 @@ import { isEmpty } from 'lodash'
 import { useEffect, useState } from 'react'
 import { Image } from 'react-native'
 import PredictionService from 'services/PredictionService'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from 'Routes/RootStackParam'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export enum PredictionState {
   Init = 'init',
@@ -12,10 +16,13 @@ export enum PredictionState {
   End = 'end',
 }
 
+type RamdonNavigationProp = StackNavigationProp<RootStackParamList, 'Random'>
+
 export default function useGetPredictionState() {
   const [state, setState] = useState<PredictionState>(PredictionState.Init)
   // const { remainingTime, isOnCooldown, setCooldown, lastFood } =
   //   useCountdownTimer('foodCooldown')
+  const { replace } = useNavigation<RamdonNavigationProp>()
 
   const [predictionFoods, setPredictionFoods] = useState<IFood[]>([])
   const [index, setIndex] = useState(0)
@@ -34,6 +41,7 @@ export default function useGetPredictionState() {
           predict,
         }
       )
+
       // setCooldown(predictionFoods[index])
     } else {
       setState(PredictionState.Loading)
@@ -60,11 +68,18 @@ export default function useGetPredictionState() {
       case PredictionState.Init:
         setState(PredictionState.Loading)
         try {
-          const predictionResult = await PredictionService.predictionFood()
+          const force = await AsyncStorage.getItem('alreadySelect')
+
+          const predictionResult = await PredictionService.predictionFood(
+            force === '1'
+          )
+
+          await AsyncStorage.removeItem('alreadySelect')
+
           setPredictionFoods(predictionResult.data)
           setState(PredictionState.Random)
         } catch {
-          alert('error')
+          replace('FoodSelector')
         }
         return
       case PredictionState.Random:
@@ -84,14 +99,9 @@ export default function useGetPredictionState() {
         }
         return
       case PredictionState.End:
-        setState(PredictionState.Loading)
-        try {
-          const predictionResult = await PredictionService.predictionFood()
-          setPredictionFoods(predictionResult.data)
-          setState(PredictionState.Random)
-        } catch {
-          alert('error')
-        }
+        setState(PredictionState.Init)
+        setIndex(0)
+        setPredictionFoods([])
         return
       default:
         return

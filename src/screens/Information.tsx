@@ -31,8 +31,6 @@ const Information: React.FC<InformationProps> = ({ route }) => {
         banFood: data.banFood.map((ban: any) => ban._id),
       }
 
-      alert(JSON.stringify(newData))
-
       const userData = await UserService.updateUserData(user.userId, newData)
 
       setUser(userData)

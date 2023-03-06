@@ -15,14 +15,18 @@ import {
   VStack,
   HStack,
   Badge,
+  Overlay,
+  useDisclose,
 } from 'native-base'
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import Spinner from 'react-native-loading-spinner-overlay/lib'
 import { BottomTabParam, RootStackParamList } from 'Routes/RootStackParam'
 import FoodService from 'services/FoodService'
 import UserService from 'services/UserService'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { TUTORIAL_TINDER_CARD } from 'images'
 
 type FoodSelectorNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -36,6 +40,7 @@ export interface FoodTinderCardProps {
   limit?: number
   nextPage?: boolean
   height?: number
+  showOnstart?: boolean
 }
 
 function FoodTinderCard({
@@ -43,25 +48,30 @@ function FoodTinderCard({
   limit = 30,
   nextPage = false,
   height = 580,
+  showOnstart = false,
 }: FoodTinderCardProps) {
-  const { colors } = useTheme()
-
   const { user, setUser } = useAuthContext()
 
-  const { replace, navigate } = useNavigation<
+  const { navigate } = useNavigation<
     FoodSelectorNavigationProp & AppStackNavigationProp
   >()
   const [isLoading, setIsLoading] = useState(false)
 
   const { foods, loading, refetch } = useAutoRandomUnvotedFood(limit)
   const [index, setIndex] = useState(-1)
+  const [isShow, setIsShow] = useState(showOnstart)
+  const { colors } = useTheme()
 
   const setReady = async () => {
     setIsLoading(true)
 
-    const userData = await UserService.setUserAsReady(user.userId)
+    if (user.withDescription == false) {
+      const userData = await UserService.setUserAsReady(user.userId)
 
-    setUser(userData)
+      setUser(userData)
+    }
+
+    await AsyncStorage.setItem('alreadySelect', '1')
 
     navigate('HomeTabs', {
       screen: 'Random',
@@ -76,15 +86,44 @@ function FoodTinderCard({
 
   return (
     <View>
+      <Overlay isOpen={isShow} isKeyboardDismissable useRNModal>
+        <Pressable onPress={() => setIsShow(false)}>
+          <Stack
+            background="rgba(91, 91, 91, 0.85)"
+            height="100%"
+            alignItems="center"
+          >
+            <Image
+              width="90%"
+              height="300px"
+              resizeMode="contain"
+              mt="140px"
+              source={TUTORIAL_TINDER_CARD}
+              alt="tutorial"
+            />
+          </Stack>
+        </Pressable>
+      </Overlay>
       <VStack>
         <Stack m="4" direction="row" justifyContent="space-between">
-          {title ? (
-            <>{title}</>
-          ) : (
-            <Text fontWeight="500" display="inline-block" fontSize="3xl">
-              ปัดอาหารที่คุณชอบ
-            </Text>
-          )}
+          <HStack alignItems="center" space="1">
+            {title ? (
+              <>{title}</>
+            ) : (
+              <Text fontWeight="500" display="inline-block" fontSize="3xl">
+                ปัดอาหารที่คุณชอบ
+              </Text>
+            )}
+            <Ionicons
+              name="information-circle-outline"
+              color={colors.gray[800]}
+              size={40}
+              onPress={() => setIsShow(true)}
+              style={{
+                fontWeight: '600',
+              }}
+            />
+          </HStack>
           {nextPage && index >= 19 && (
             <Button
               variant="subtle"

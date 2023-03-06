@@ -10,8 +10,6 @@ class AuthService {
   static client = new APIClient({})
 
   static async checkAPI() {
-    alert(this.client.client.defaults.baseURL)
-
     return this.client.fetch({
       path: '/',
       method: RequestMethod.Get,

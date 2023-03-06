@@ -11,15 +11,11 @@ import InputController from 'components/hook-form/InputController'
 import { useAuthContext } from '../contexts/AuthContext'
 import { AxiosError } from 'axios'
 
-import { KeyboardAvoidingView } from 'native-base'
-import { Keyboard, TouchableWithoutFeedback } from 'react-native'
-import SingleSelectSearch from 'components/SingleSelectSearch'
-import { MOCK_FOOD_LIST } from '../mocks/foodName'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 type LoginNavigationProp = StackNavigationProp<RootStackParamList, 'Auth'>
 
 const Login: React.FC = () => {
-  const navigation = useNavigation<LoginNavigationProp>()
   const { login } = useAuthContext()
 
   const handleSubmit = async (data: IUserLoginForm) => {
@@ -32,39 +28,37 @@ const Login: React.FC = () => {
   }
 
   return (
-    <KeyboardAvoidingView keyboardVerticalOffset={20}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <GenericFormProvider
-          submitText="เข้าสู่ระบบ"
-          onSubmit={handleSubmit}
-          py={12}
-          px={8}
-        >
-          <InputController
-            name="username"
-            label="Username"
-            rules={{
-              required: 'Username is require.',
-            }}
-            placeholder="username"
-            size="lg"
-            variant="underlined"
-          />
-          <InputController
-            name="password"
-            label="Password"
-            rules={{
-              required: 'Password is require.',
-            }}
-            size="lg"
-            placeholder="password"
-            variant="underlined"
-            type="password"
-            mb={24}
-          />
-        </GenericFormProvider>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <KeyboardAwareScrollView extraScrollHeight={30}>
+      <GenericFormProvider
+        submitText="เข้าสู่ระบบ"
+        onSubmit={handleSubmit}
+        py={12}
+        px={8}
+      >
+        <InputController
+          name="username"
+          label="Username"
+          rules={{
+            required: 'Username is require.',
+          }}
+          placeholder="username"
+          size="lg"
+          variant="underlined"
+        />
+        <InputController
+          name="password"
+          label="Password"
+          rules={{
+            required: 'Password is require.',
+          }}
+          size="lg"
+          placeholder="password"
+          variant="underlined"
+          type="password"
+          mb={24}
+        />
+      </GenericFormProvider>
+    </KeyboardAwareScrollView>
   )
 }
 
