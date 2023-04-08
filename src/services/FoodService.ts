@@ -21,6 +21,19 @@ class FoodService {
     })
   }
 
+  static async getTopFoodByTag(tagId: string) {
+    return this.client.fetch<IFoodList>({
+      path: `/top-food/${tagId}`,
+      method: RequestMethod.Get,
+    })
+  }
+  static async getTopUserFood() {
+    return this.client.fetch<IFoodList>({
+      path: '/top-user-food',
+      method: RequestMethod.Get,
+    })
+  }
+
   static async getAllFoodName() {
     return this.client.fetch<IFoodList>({
       path: '/food-list',

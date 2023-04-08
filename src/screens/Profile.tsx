@@ -17,6 +17,7 @@ import { Alert } from 'react-native'
 import { FEMALE_AVATAR, MALE_AVATAR } from 'images'
 import * as SecureStore from 'expo-secure-store'
 import { isEmpty } from 'lodash'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export type ProfileScreenProp = StackScreenProps<RootStackParamList, 'Profile'>
 
@@ -32,7 +33,9 @@ const Profile: React.FC<ProfileScreenProp> = ({ navigation }) => {
     Alert.alert('ออกจากระบบ', 'คุณแน่ใจใช่ไหมว่าต้องการออกจากระบบ', [
       {
         text: 'ยกเลิก',
-        onPress: () => {},
+        onPress: async () => {
+          await AsyncStorage.removeItem('foodCooldown')
+        },
       },
       {
         text: 'ตกลง',

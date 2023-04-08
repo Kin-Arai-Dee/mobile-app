@@ -9,7 +9,7 @@ class APIClient extends BaseAPIClient {
     pathPrefix?: string
   }) {
     super({
-      apiEndpoint: `http://localhost:8000/api/v1${pathPrefix}`,
+      apiEndpoint: `${BASE_API_URL}/api/v1${pathPrefix}`,
       ...config,
     })
   }
